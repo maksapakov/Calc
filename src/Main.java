@@ -30,18 +30,12 @@ public class Main {
             throw new VariableException("Цифры должны лежать в диапазоне от 1 до 10");
         }
 //        System.out.println(a + " , " + b);
-
-
-        //Блок исключений
         //Исключение при нарушении количества операторов
         if (arraySplit.length > 3) {
             throw new VariableException("т.к. формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
         } else if (arraySplit.length != 3) {
             throw new VariableException("т.к. строка не является математической операцией");
         }
-        //Исключение при вводе чисел не входящих в диапазон от 1 до 10
-
-        // Исключение при разных системах счисления
 
         // Блок вычисления
         int res;
@@ -64,6 +58,7 @@ public class Main {
 
             } else if (Boolean.logicalAnd(Integer.parseInt(arraySplit[0]) > 0, Integer.parseInt(arraySplit[2]) > 0)) {
 
+                //Исключение при вводе чисел не входящих в диапазон от 1 до 10
                 for (int i = 0; i < 3; i = i + 2) {
                     if (Integer.parseInt(arraySplit[i]) < 1 || Integer.parseInt(arraySplit[i]) > 10) {
                         throw new VariableException("Цифры должны лежать в диапазоне от 1 до 10");
