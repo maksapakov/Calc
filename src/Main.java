@@ -26,7 +26,7 @@ public class Main {
         }
         int a = arrayRoman[0];
         int b = arrayRoman[1];
-        if (Boolean.logicalOr(a > 10, b > 10)){
+        if (Boolean.logicalOr(a > 10, b > 10)) {
             throw new VariableException("Цифры должны лежать в диапазоне от 1 до 10");
         }
 //        System.out.println(a + " , " + b);
@@ -39,6 +39,8 @@ public class Main {
 
         // Блок вычисления
         int res;
+        String overTen = "";
+
         try {
             if (Boolean.logicalAnd(a > 0, b > 0)) {
 
@@ -47,14 +49,37 @@ public class Main {
                     case "-" -> {
                         res = arrayRoman[0] - arrayRoman[1];
                         if (res < 0) {
-                            throw new VariableException("т.к. в римской системе нет отрицательных чисел");                        }
+                            throw new VariableException("т.к. в римской системе нет отрицательных чисел");
+                        }
                     }
                     case "/" -> res = arrayRoman[0] / arrayRoman[1];
-                    case "*" -> res = arrayRoman[0] * arrayRoman[1];
+                    case "*" -> {
+                        res = arrayRoman[0] * arrayRoman[1];
+                        if (res > 10) {
+                            int var1 = res / 10;
+                            res = res % 10;
+                            switch (var1) {
+                                case 1 -> overTen = "X";
+                                case 2 -> overTen = "XX";
+                                case 3 -> overTen = "XXX";
+                                case 4 -> overTen = "XL";
+                                case 5 -> overTen = "L";
+                                case 6 -> overTen = "LX";
+                                case 7 -> overTen = "LXX";
+                                case 8 -> overTen = "LXXX";
+                                case 9 -> overTen = "XC";
+                                case 10 -> overTen = "C";
+                                default -> overTen = "";
+                            }
+                        }
+                    }
                     default ->
                             throw new IllegalStateException("Введён неверный арифметический оператор: " + arraySplit[1]);
                 }
-                input = EnumRoman.values()[res - 1].toString();
+                if (res % 10 != 0) {
+                    input = overTen + EnumRoman.values()[res - 1].toString();
+
+                } else input = overTen;
 
             } else if (Boolean.logicalAnd(Integer.parseInt(arraySplit[0]) > 0, Integer.parseInt(arraySplit[2]) > 0)) {
 
